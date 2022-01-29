@@ -1,14 +1,10 @@
 <!-- _coverpage.md -->
 
-![logo](icon.svg)
+# **清水豆沙的Blog**
+## 有梦最美 希望相随
 
-# docsify <small>4.12.1</small>
+[GitHub]()
+[马上开始]()
 
-> A magical documentation site generator.
-
-- Simple and lightweight
-- No statically built html files
-- Multiple themes
-
-[GitHub](https://github.com/docsifyjs/docsify/)
-[Get Started](#headline)
+<!-- 背景图片 -->
+![](https://s2.loli.net/2022/01/13/lN6ZgT87FyPxImV.jpg)
