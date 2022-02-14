@@ -1,6 +1,5 @@
 <!-- docs/_sidebar.md -->
 * **前端笔记**
-* [**HTML**](HTML/)
 * [**CSS**](CSS/css专题.md)
 * [**JavaScript**](JavaScript/)
   * [闭包](/JavaScript/闭包.md)
