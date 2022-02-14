@@ -18,7 +18,7 @@
 
 ## getDerivedStateFromProps
 
-> getDerivedStateFromProps 有且仅有一个用途:使用 props来派生/更新 state
+> getDerivedStateFromProps 有且仅有一个用途:使用 props 来派生/更新 state
 
 - 废弃了 `componentWillMount`,新增了`getDerivedStateFromProps`
   - `getDerivedStateFromProps` 不是`componentWillMount` 的 替代品
@@ -38,9 +38,9 @@
 
 - Fiber 是 React16 对 React 核心算法的一次重写
 - Fiber 会使原本同步渲染过程变成异步的
-- React16之前,当触发一次组件的更新,React 都会构建一个新的虚拟 DOM 树,通过与上一次的虚拟 DOM 树Diff,进行定向更新,这个过程是一个递归的过程,同步渲染的递归调用栈是非常深的 只有最底层的调用返回了,整个渲染过程才会逐层返回,这个漫长且不可打断的过程有巨大风险,同步线程一旦开始,直到递归完成,才能结束,这个过程中浏览器什么都做不了,渲染时间稍长就会面临卡顿卡死的现象**(简单说,diff算法的递归操作导致过程漫长不可被打断,有卡顿或卡死的风险)**
+- React16 之前,当触发一次组件的更新,React 都会构建一个新的虚拟 DOM 树,通过与上一次的虚拟 DOM 树 Diff,进行定向更新,这个过程是一个递归的过程,同步渲染的递归调用栈是非常深的 只有最底层的调用返回了,整个渲染过程才会逐层返回,这个漫长且不可打断的过程有巨大风险,同步线程一旦开始,直到递归完成,才能结束,这个过程中浏览器什么都做不了,渲染时间稍长就会面临卡顿卡死的现象 **(简单说,diff 算法的递归操作导致过程漫长不可被打断,有卡顿或卡死的风险)**
 - Fiber 架构的重要特征就是可以被打断的异步渲染模式,根据"能否被打断"这一标准,React 16 的声明周期被划分为了 render 和 commit 两个阶段
-  - Render 阶段:纯净且没有副作用,可能被React暂停,终止或重新启动
+  - Render 阶段:纯净且没有副作用,可能被 React 暂停,终止或重新启动
   - Pre-commit 阶段:可以读取 DOM
   - Commit 阶段:可以使用 DOM 运行副作用,更新安排
   - render 阶段在执行过程中允许被打断,而 commit 阶段则总是同步执行的
@@ -59,12 +59,12 @@
   - 组件初始化或更新时候,讲 props 映射到 state 中
   - 返回的值和 state 进行合并传入 `shouldComponentUpdate` 作为第二个参数用于判断是否渲染组件
 - render
-  - **createElement创建元素** , **cloneElement 克隆元素** ，**React.children 遍历 children**
+  - **createElement 创建元素** , **cloneElement 克隆元素** ，**React.children 遍历 children**
 - getSnapshotBeforeUpdate(获得更新前的快照)
-  - 配合componentDidUpdate，保存一次更新前的信息
+  - 配合 componentDidUpdate，保存一次更新前的信息
 - componentDidUpdate(同步执行)
   - 获取最新 DOM 状态
-  - 接受getSnapshotBeforeUpdate保存的快照信息
+  - 接受 getSnapshotBeforeUpdate 保存的快照信息
   - 避免设置 state ,可能会引起无限循环
 - componentDidMount(同步执行)
   - 关于 DOM 的操作,比如事件监听
