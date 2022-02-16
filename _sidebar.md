@@ -1,6 +1,11 @@
 <!-- docs/_sidebar.md -->
 * **前端笔记**
-* [**CSS**](CSS/css专题.md)
+* **CSS**
+  * [垂直居中](CSS/垂直居中.md)
+  * [bfc](CSS/bfc.md)
+  * [响应式布局](CSS/响应式布局.md)
+  * [工程化](CSS/工程化.md)
+  * [1px问题](CSS/1px.md)
 * **JavaScript**
   * [闭包](/JavaScript/闭包.md)
   * [内存](/JavaScript/内存.md)
