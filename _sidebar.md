@@ -1,5 +1,4 @@
 <!-- docs/_sidebar.md -->
-* **前端笔记**
 * **CSS**
   * [垂直居中](CSS/垂直居中.md)
   * [bfc](CSS/bfc.md)
