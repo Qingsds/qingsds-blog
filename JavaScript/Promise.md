@@ -260,7 +260,21 @@ setTimeout(() => {
         - `promise2-1 <resolve>:'success'`
         - `promise2-2 <reject>:Error:error!`
 
-## await
+## async/await 和 Promise 的关系
+
+- 执行 async 函数,返回的是一个 Promise 对象
+- await 相当于 Promise 的 then
+- try..catch 可捕获异常,代替了 Promise 的 catch
+
+### async
+
+- 执行 async 函数返回的是 Promise 的值
+- async 的返回值
+  - 如果是非 Promise 类型,则会包装为 resolve 状态 Promise 返回.
+  - 如果为 Promise 类型,这会直接返回
+  - 若没有返回值,则返回 resolve 状态的 Promise 值为 undefined
+
+### await
 
 - await 是同步代码
 - 在 async function()里的 await 下面的代码被视为(微任务)
@@ -283,3 +297,7 @@ async function async2() {
 }
 async1().then((res) => console.log(res));
 ```
+
+### for...of
+
+主要用于异步任务的循环
