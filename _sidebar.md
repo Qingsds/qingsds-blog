@@ -16,6 +16,10 @@
   * [Promise](JavaScript/Promise.md)
   * [DOM&BOM](JavaScript/DOM&BOM.md)
   * [设计模式](JavaScript/设计模式.md)
+* **计算机网络与浏览器专题**
+  * [浏览器渲染专题](Internet/浏览器渲染.md)
+  * [计算机网络](Internet/计算机网络.md)
+  * [跨域](Internet/跨域.md)
 * **React**
   * [JSX](/React/jsx.md)
   * [生命周期](/React/smzq.md)
@@ -25,8 +29,4 @@
   * [setState](/React/setState.md)
   * [Render](/React/render.md)
   * [Hooks](/React/hook.md)
-* **计算机网络与浏览器专题**
-  * [浏览器渲染专题](Internet/浏览器渲染.md)
-  * [计算机网络](Internet/计算机网络.md)
-  * [跨域](Internet/跨域.md)
   
