@@ -22,11 +22,24 @@
   * [跨域](Internet/跨域.md)
 * **React**
   * [JSX](/React/jsx.md)
-  * [生命周期](/React/smzq.md)
+  * [Component](React/component.md)
+  * [生命周期](/React/lifeCycle.md.md)
+  * [props](React/props.md)
   * [组件间数据的传输](/React/shuju.md)
   * [虚拟DOM](/React/virtualDOM.md)
   * [stackReconciler](/React/stackReconciler.md)
   * [setState](/React/setState.md)
   * [Render](/React/render.md)
   * [Hooks](/React/hook.md)
-  
+  * [ref](React/ref.md)
+  * [HOC](React/hoc.md)
+  * **优化相关**
+    * [key](React/key.md)
+    * [控制渲染](React/控制渲染.md)
+    * [异步渲染](React/异步渲染.md)
+    * [如何处理大量数据](React/如何处理大量数据.md)
+    * [异常处理](React/异常处理.md)
+  * **实践指南**
+    * [AsyncComponent](React/实践指南/AsyncComponent.md)
+    * [ErrorBoundary](React/实践指南/ErrorBoundary.md)
+    * [useAsync](React/实践指南/useAsync%20状态管理.md)

@@ -66,7 +66,7 @@ export default class App extends React.Component {
 结果发现
 
 - 前两个按钮是异步的,最后的按钮是同步执行的
-- 由于批量更新的机制第二个按钮的三次 setState 只会针对最新的state 进行更新
+- 由于批量更新的机制第二个按钮的三次 setState 只会针对最新的 state 进行更新
 - 批量更新流程如下
 
 ![截屏2022-01-11 14.59.34.png](https://s2.loli.net/2022/01/13/U6bFqEmDtBHxpu2.png)
@@ -93,12 +93,12 @@ ReactComponent.prototype.setState = function (partialState, callback) {
 };
 ```
 
-这里的 setState充当了一个分发器的角色,将其分发到不同的功能函数中
+这里的 setState 充当了一个分发器的角色,将其分发到不同的功能函数中
 
 - 对象 → `enqueueSetState`
 - 函数 → `enqueueCallback`
 
-#### 以对象形式的入参为例查看enqueueSetState
+#### 以对象形式的入参为例查看 enqueueSetState
 
 ```javascript
 /**
@@ -127,7 +127,7 @@ function enqueueSetState(publicInstance, partialState) {
   - 将新的 state 放进组件的状态队列里
   - 用`enqueueUpdate`来处理即将要更新的实例对象
 
-### 查看enqueueUpdate 做了什么
+### 查看 enqueueUpdate 做了什么
 
 ```javascript
 **
@@ -153,7 +153,6 @@ function enqueueUpdate(component) {
   - 如果是 false 直接更新
   - 如果是 true 就放到 `dirtyComponents`等待
 
-
 ### ReactDefaultBatchingStrategy 源码
 
 ```javascript
@@ -163,12 +162,11 @@ function enqueueUpdate(component) {
  * 源码
  */
 var ReactDefaultBatchingStrategy = {
-  // 全局唯一的锁标识 🔐
+  // 全局唯一的锁标识 
   isBatchingUpdates: false,
 
   // 发起更新动作的方法
   batchedUpdates: function (callback, a, b, c, d, e) {
-    
     // 缓存锁变量
     var alreadyBatchingStrategy =
       ReactDefaultBatchingStrategy.isBatchingUpdates;
@@ -186,10 +184,11 @@ var ReactDefaultBatchingStrategy = {
 ```
 
 `batchingStrategy`用于管理批量更新的对象
+
 > 有一个全局唯一的锁标识 `isBatchingUpdates`用于保存当前是否处于批量更新过程
 
 - `isBatchingUpdates`初始值为 false ,当执行更新动作时 改为 true
-- 当`isBatchingUpdates`为 true任何组件都要暂停入队等待,且不能插队
+- 当`isBatchingUpdates`为 true 任何组件都要暂停入队等待,且不能插队
 
 `isBatchingUpdates` 是在同步代码中变化的
 
@@ -213,11 +212,90 @@ var FLUSH_BATCHED_UPDATES = {
   initialize: emptyFunction,
   close: ReactUpdate.flushBatchedUpdates.bind(ReactUpdates),
 };
-var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES,RESET_BATCHED_UPDATE]
+var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATE];
 ```
 
 ### 结论
 
 - `isBatchingUpdate`在同步代码中变化的 `setTimeout` 是异步执行 当 this.setState 执行调用发生时 `isBatchingUpdate`早已变为了 false.
 - 在 React 钩子函数及合成事件中,它表现为异步
-- 在setTimeout,setInerval等函数,包括 DOM 原生事件,都表现为同步
+- 在 setTimeout,setInterval 等函数,包括 DOM 原生事件,都表现为同步
+
+## 在异步情况下开启批量更新模式
+
+React-Dom 中提供了批量更新方法 `unstable_batchedUpdates`，可以去手动批量更新
+
+```js
+import ReactDOM from "react-dom";
+const { unstable_batchedUpdates } = ReactDOM;
+```
+
+```js
+setTimeout(() => {
+  unstable_batchedUpdates(() => {
+    this.setState({ number: this.state.number + 1 });
+    console.log(this.state.number);
+    this.setState({ number: this.state.number + 1 });
+    console.log(this.state.number);
+    this.setState({ number: this.state.number + 1 });
+    console.log(this.state.number);
+  });
+});
+```
+
+打印:0,0,0 最终 state 的值为 1
+
+## setState 中提升更新任务的优先级
+
+### flushSync
+
+React-dom 提供了 `flushSync`. `flushSync` 可以将回调函数中的更新任务，放在一个较高的优先级中
+
+```js
+
+state = {number:0}
+
+handleClick=()=>{
+    setTimeout(()=>{
+        this.setState({ number: 1  })
+    })
+    this.setState({ number: 2  })
+    this.setState({ number: 5  })
+    ReactDOM.flushSync(()=>{
+        this.setState({ number: 3  })
+    })
+    this.setState({ number: 4  })
+}
+render(){
+   console.log(this.state.number)
+   return ...
+}
+```
+
+打印 0 3 4 1
+
+- 首先打印初始值 0
+- `flushSync` `this.setState({number:3})` 设定了一个高优先级的更新,2 和 3 被批量更新到 3 打印 3
+- 更新 4
+- 最后更新`setTimeout`中的 `number = 1`
+
+### flushSync 补充说明
+
+- 如果发现了 `flushSync` ，就会先执行更新
+- 如果之前有未更新的 `setState/useState` 就会合并到一起(`flushSync` 在同步状态下会合并之前的 setState/useState)
+
+### React 同一级别的更新关系
+
+1. flushSync 中的 setState
+2. 正常执行上下文中 setState
+3. setTimeout ，Promise 中的 setState
+
+## 最后
+
+### 类组件中的`setState`和函数组件中的`useState`的区别
+
+- 相同点
+  - 底层都调用了`scheduleUpdateOnFiber`方法,事件驱动的情况下都有批量更新规则
+- 不同点
+  - 在不是 `pureComponent` 组件模式下,`setState`不会浅比较两次`state`的值,只要调用`setState`,没有优化手段的前提下,就会执行更新, `useState` 中的`dispatchAction` 会默认比较两次`state`是否相同,再决定是否更新
+  - `setState`合并参数,`useState`重新赋值

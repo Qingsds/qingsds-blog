@@ -28,6 +28,46 @@
 - 接收两个参数:props 和 state
 - 需要有一个对象格式的返回值,react 需要用这个返回值来更新组件的 state
 - `getDerivedStateFromProps` 方法对 state 的更新动作并非"覆盖"式更新,而是针对某个属性的定向更新
+- `getDerivedStateFromProps` 的返回值可以作为新的 state ，传递给 `shouldComponentUpdate` 。
+
+```js
+import React from "react";
+
+class LifeCycle extends React.Component {
+  static getDerivedStateFromProps(newProps) {
+    const { type } = newProps;
+    switch (type) {
+      case "fruit":
+        return {
+          list: ["苹果", "香蕉", "葡萄"],
+        }; /* 接受 props 变化 ，返回值将作为新的state ，
+        用于渲染或传递给 shouldComponentUpdate */
+      case "vegetables":
+        return { list: ["菠菜", "西红柿", "土豆"] };
+      default:
+        return null;
+    }
+  }
+  render() {
+    return (
+      <div>
+        {this.state.list.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </div>
+    );
+  }
+}
+export default class Index extends React.Component {
+  render() {
+    return (
+      <div>
+        <LifeCycle type={"fruit"} />
+      </div>
+    );
+  }
+}
+```
 
 ## getSnapshotBeforeUpdate
 
@@ -56,7 +96,7 @@
   - 对类组件事件进行处理(绑定 this 防抖,节流)
   - 对类组件进行生命周期劫持,渲染劫持
 - getDerivedStateFromProps
-  - 组件初始化或更新时候,讲 props 映射到 state 中
+  - 组件初始化或更新时候,将 props 映射到 state 中
   - 返回的值和 state 进行合并传入 `shouldComponentUpdate` 作为第二个参数用于判断是否渲染组件
 - render
   - **createElement 创建元素** , **cloneElement 克隆元素** ，**React.children 遍历 children**
@@ -73,3 +113,49 @@
   - 性能优化
 - componentWillUnmount
   - 清楚延时器,定时器
+
+## 函数组件的声明周期代替方案
+
+```js
+import React from "react";
+
+function FunctionLifecycle(props) {
+  const [num, setNum] = React.useState(0);
+  React.useEffect(() => {
+    /* 请求数据 ， 事件监听 ， 操纵dom  ， 增加定时器 ， 延时器 */
+    console.log("组件挂载完成: componentDidMount");
+    return function componentWillUnmount() {
+      /* 解除事件监听器 ，清除 */
+      console.log("组件销毁: componentWillUnmount");
+    };
+  }, []); /* 切记 dep = [] */
+  React.useEffect(() => {
+    console.log("props变化: componentWillReceiveProps");
+  }, [props]);
+  React.useEffect(() => {
+    /*  */
+    console.log(" 组件更新完成: componentDidUpdate ");
+  });
+  return (
+    <div>
+      <div> props : {props.number} </div>
+      <div> states : {num} </div>
+      <button onClick={() => setNum((state) => state + 1)}>改变state</button>
+    </div>
+  );
+}
+
+export default function Index() {
+  const [number, setNumber] = React.useState(0);
+  const [isRender, setRender] = React.useState(true);
+  return (
+    <div>
+      {isRender && <FunctionLifecycle number={number} />}
+      <button onClick={() => setNumber((state) => state + 1)}>
+        改变props
+      </button> <br />
+      <button onClick={() => setRender(false)}>卸载组件</button>
+    </div>
+  );
+}
+```
