@@ -218,7 +218,7 @@ function HandleClickHoc(Component) {
 export default HandleClickHoc(A);
 ```
 
-### 要在函数组件内部或类组件 render 函数中使用 HOC 🙅🏻‍♀️
+### 不要在函数组件内部或类组件 render 函数中使用 HOC 🙅🏻‍♀️
 
 ### 继承静态属性的第三方库 `hoist-non-react-statics`
 
