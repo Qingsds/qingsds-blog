@@ -4,7 +4,8 @@ section.cover.has-mask .mask {
   top: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.1 !important;
+  /* opacity: 0.1 !important; */
+  background-color: aquamarine;
 }
 
 .sidebar > h1 a {
