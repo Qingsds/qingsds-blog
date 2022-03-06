@@ -30,12 +30,12 @@
   * [stackReconciler](/React/stackReconciler.md)
   * [setState](/React/setState.md)
   * [Render](/React/render.md)
-  * [Hooks](/React/hook.md)
   * [ref](React/ref.md)
   * [高阶组件](React/hoc.md)
   * **原理**
     * [事件原理](React/原理/事件原理.md)
     * [fiber](React/原理/fiber.md)
+    * [hooks](React/原理/hooks.md)
   * **优化相关**
     * [key](React/key.md)
     * [控制渲染](React/控制渲染.md)
