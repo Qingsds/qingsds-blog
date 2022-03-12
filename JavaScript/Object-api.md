@@ -296,4 +296,4 @@ let entries = new Map([
 console.log(Object.fromEntries(entries)); //{ name: 'qingsds', age: 16 }
 ```
 
-## [参考资料]('https://lxchuan12.gitee.io/js-object-api/')
+## [参考资料](https://lxchuan12.gitee.io/js-object-api/)

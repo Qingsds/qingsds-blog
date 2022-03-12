@@ -125,4 +125,4 @@ const handleClick = () => {
 - 当传入的参数为 **_值_** 时,几次操作的 `action` 都为同一个值 最终计算的 `newState` 也为同一个值
 - 当传入 **_函数_** 时,`newState` 基于 `action` 函数计算,最终得到累加的结果
 
-## [参考资料]("https://mp.weixin.qq.com/s/TKPcuU3vDlkeZ-LfdZZJJQ")
+## [参考资料](https://mp.weixin.qq.com/s/TKPcuU3vDlkeZ-LfdZZJJQ)
