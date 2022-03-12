@@ -10,8 +10,10 @@
   * [内存](/JavaScript/内存.md)
   * [执行上下文和调用栈](JavaScript/执行上下文和调用栈.md)
   * [this](/JavaScript/this.md)
+  * [运算符的优先级](JavaScript/运算符的优先级.md)
   * [JavaScript 类型转换](JavaScript/JavaScript类型转换.md)
   * [原型](JavaScript/原型.md)
+  * [object-api](JavaScript/Object-api.md)
   * [事件循环](JavaScript/事件循环.md)
   * [Promise](JavaScript/Promise.md)
   * [DOM&BOM](JavaScript/DOM&BOM.md)
@@ -36,6 +38,7 @@
     * [事件原理](React/原理/事件原理.md)
     * [fiber](React/原理/fiber.md)
     * [hooks](React/原理/hooks.md)
+    * [异步调度&时间分片](React/原理/异步调度和事件分片.md)
   * **优化相关**
     * [key](React/key.md)
     * [控制渲染](React/控制渲染.md)
