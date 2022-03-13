@@ -348,3 +348,5 @@ function markRef(current: Fiber | null, workInProgress: Fiber) {
 - `current` 为当前调和的 fiber 节点
 - `current === null && ref !== null`：就是在 fiber 初始化的时候，第一次 ref 处理的时候，是一定要标记 Ref 的
 - `current !== null && current.ref !== ref`：就是 fiber 更新的时候，但是 ref 对象的指向变了
+
+- wan
