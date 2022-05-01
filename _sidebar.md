@@ -18,6 +18,7 @@
   * [Promise](JavaScript/Promise.md)
   * [DOM&BOM](JavaScript/DOM&BOM.md)
   * [设计模式](JavaScript/设计模式.md)
+  * [ES6笔记](笔记/es6%20笔记.md)
 * **计算机网络与浏览器专题**
   * [浏览器渲染专题](Internet/浏览器渲染.md)
   * [计算机网络](Internet/计算机网络.md)

@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-# **清水豆沙的Blog**
+# 清水豆沙的Blog
 ## 有梦最美 希望相随
 
 [GitHub](https://github.com/Qingsds)

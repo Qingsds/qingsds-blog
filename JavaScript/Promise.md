@@ -38,6 +38,16 @@ Promise 是异步编程的新的解决方案
 
 ## Promise API
 
+- all
+  - 接受一个可迭代的对象,若都成功返回成功的 Promise 数组,失败则返回失败的 Promise
+- allSettled
+  - 如果想知道每个 Promise 的结果就可以用
+- any
+  - 返回最先成功的 Promise ,若没有成功的 Promise,返回失败的 Promise
+- race
+  - 返回最先完成的 Promise
+- finlay
+  - 在 Promise 结束后,不管成功失败都会执行
 - Promise 构造函数：Promise(executor){}
   - executor 函数：执行器 （resolve，reject）=> {}
   - resolve 函数：内部定义成功时调用的函数 value=>{}
